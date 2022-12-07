@@ -12,6 +12,10 @@ function App() {
           count is {count}
         </button>
       </div>
+      <iframe
+        style={{ height: 240, width: 350 }}
+        src="https://embeded.vercel.app/"
+      />
     </div>
   );
 }
