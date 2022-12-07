@@ -1,9 +1,28 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 
+const SUCCESS_EVENT = "merchant:event:success";
+const CANCEL_EVENT = "merchant:event:cancel";
+const URL = "http://127.0.0.1:5174/";
+
 function App() {
-  const [count, setCount] = useState(0);
+  const [messageFromParent, setMessageFromParent] = useState("");
+
+  const callback = useCallback((e: any) => {
+    console.log("child");
+    setMessageFromParent(e.data);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("message", callback);
+
+    return () => window.removeEventListener("message", callback);
+  }, []);
+
+  const handleClickSuccess = () => {
+    window.parent.postMessage("Hi dad!", "http://127.0.0.1:5173");
+  };
 
   return (
     <div
@@ -14,6 +33,11 @@ function App() {
       }}
     >
       <h1>Embedded application</h1>
+      <pre>Message from parent: {messageFromParent}</pre>
+      <button onClick={handleClickSuccess}>Success</button>
+      <br />
+      <br />
+      <button>Cancel</button>
     </div>
   );
 }
