@@ -15,7 +15,7 @@ function App({ embeddedUrl }: AppProps) {
           count is {count}
         </button>
       </div>
-      <iframe style={{ height: 240, width: 350 }} src={embeddedUrl} />
+      <iframe style={{ height: 500, width: 600 }} src={embeddedUrl} />
     </div>
   );
 }
