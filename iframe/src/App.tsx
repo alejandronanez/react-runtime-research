@@ -22,12 +22,7 @@ function App({
   const sendMessage = () => {
     if (!iFrameRef.current) return;
 
-    iFrameRef.current.contentWindow.postMessage(
-      'something',
-      'http://127.0.0.1:5174',
-    );
-
-    iFrameRef.current.contentWindow.postMessage('Hello son!', embeddedUrl);
+    iFrameRef.current.contentWindow.postMessage('something', embeddedUrl);
   };
 
   const callback = useCallback((e: any) => {

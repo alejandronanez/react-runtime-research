@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
 
 const SUCCESS_EVENT = "merchant:event:success";
 const CANCEL_EVENT = "merchant:event:cancel";
 const URL = "http://127.0.0.1:5174/";
+const PARENT_URL = "http://127.0.0.1:5173/";
 
 function App() {
   const [messageFromParent, setMessageFromParent] = useState("");
@@ -21,7 +21,7 @@ function App() {
   }, []);
 
   const handleClickSuccess = () => {
-    window.parent.postMessage("Hi dad!", "http://127.0.0.1:5173");
+    window.parent.postMessage("Hi dad!", PARENT_URL);
   };
 
   return (
