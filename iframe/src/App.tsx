@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import './App.css';
 
-function App() {
+type AppProps = {
+  embeddedUrl: string;
+};
+function App({ embeddedUrl }: AppProps) {
   const [count, setCount] = useState(0);
 
   return (
@@ -12,10 +15,7 @@ function App() {
           count is {count}
         </button>
       </div>
-      <iframe
-        style={{ height: 240, width: 350 }}
-        src="https://embeded.vercel.app/"
-      />
+      <iframe style={{ height: 240, width: 350 }} src={embeddedUrl} />
     </div>
   );
 }
