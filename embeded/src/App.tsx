@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import "./App.css";
 
-const PARENT_URL = "http://127.0.0.1:5173/";
+const PARENT_URL = import.meta.env.VITE_PARENT_URL;
 
 type OutboundEvent = {
   type: "SUCCESS" | "CANCEL" | "RESET";
@@ -11,6 +11,10 @@ function App() {
   const [messageFromParent, setMessageFromParent] = useState("");
 
   const receiveMessageCallback = useCallback((e: MessageEvent) => {
+    if (typeof e.data !== "string") {
+      return;
+    }
+
     setMessageFromParent(e.data);
   }, []);
 
@@ -44,14 +48,12 @@ function App() {
   return (
     <div className="wrapper">
       <h1>Embedded application</h1>
-      <pre>Message from parent: {messageFromParent}</pre>
-      <button onClick={handleClickSuccess}>Success</button>
-      <br />
-      <br />
-      <button onClick={handleClickCancel}>Cancel</button>
-      <br />
-      <br />
-      <button onClick={handleClickReset}>Reset</button>
+      <pre>{messageFromParent}</pre>
+      <div className="button-wrapper">
+        <button onClick={handleClickSuccess}>Success</button>
+        <button onClick={handleClickCancel}>Cancel</button>
+        <button onClick={handleClickReset}>Reset</button>
+      </div>
     </div>
   );
 }

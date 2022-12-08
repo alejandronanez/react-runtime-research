@@ -1,5 +1,5 @@
-# Embedded Application (Draft)
+# Embedded Application
 
-- This is a React application that will be rendered on an iFrame in the parent.
-- This application communicates with the parent through an `"event"` window event.
-- The parent will be listening for this event, and will update its state accordingly
+- This application runs inside an iframe
+- Make sure you set up the `VITE_PARENT_URL` environment variable correctly in the package.json
+- You can develop this application in any way you want, just make sure that you're dispatching the right events to communicate with the parent application
