@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --port 3001",
-    "build": "tsc && vite build",
+    "dev": "VITE_PARENT_URL=http://localhost:3000 vite --port 3001",
+    "build": "tsc && VITE_PARENT_URL=https://iframe-recharge.vercel.app vite build",
     "preview": "vite preview"
   },
   "dependencies": {
