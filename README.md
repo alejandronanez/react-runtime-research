@@ -6,6 +6,19 @@
 
 Check this video out https://www.loom.com/share/6fff9866e5c4421d8b3979449de6a70b
 
+## How to run this?
+
+```shell
+# in one terminal
+cd iframe
+npm run dev
+# open localhost:3000
+# in another terminal
+cd embeded
+npm run dev
+# open localhost:3001
+```
+
 ## Dynamic Imports
 
 **TL;DR:** This doesn't meet the requirements because it would require the consumers of the application to access the development version of the parent application. It was a fun exploration, Vite makes things so much easier!
