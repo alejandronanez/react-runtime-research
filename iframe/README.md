@@ -1,4 +1,4 @@
-# iFrame Approach (Draft)
+# iFrame Approach
 
 The iFrame approach was the most straightforward approach I could find for a POC about how to "Inject a React Component into a React Application at Runtime".
 
@@ -135,6 +135,10 @@ return (
 ```
 
 ![](https://cdn.zappy.app/6ca5fea1daf7ccd766bc265866be69a3.png)
+
+## Injecting third party scripts
+
+This is totally possible as you'll have complete control over the index.html
 
 # Pros and Cons
 
