@@ -6,7 +6,11 @@ type AppProps = {
   embeddedSuccessEvent: string;
   embeddedCancelEvent: string;
 };
-function App({ embeddedUrl }: AppProps) {
+function App({
+  embeddedCancelEvent,
+  embeddedSuccessEvent,
+  embeddedUrl,
+}: AppProps) {
   const [messageFromChild, setMessageFromChild] = useState('');
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const sendMessage = () => {
@@ -14,7 +18,10 @@ function App({ embeddedUrl }: AppProps) {
       return;
     }
 
-    iframeRef.current.contentWindow.postMessage('something', embeddedUrl);
+    iframeRef.current.contentWindow.postMessage(
+      'message sent from the parent',
+      embeddedUrl,
+    );
   };
 
   const receiveMessageCallback = useCallback((e: MessageEvent) => {
@@ -39,12 +46,12 @@ function App({ embeddedUrl }: AppProps) {
     <div className="App">
       <h1>RechargeApps</h1>
       <div className="card">
-        <button onClick={() => sendMessage()}>Message to child</button>
+        <button onClick={sendMessage}>Message to child</button>
       </div>
-      <pre>Outside events: {messageFromChild}</pre>
+      <pre>Navigate to: {messageFromChild}</pre>
       <iframe
         ref={iframeRef}
-        style={{ height: 500, width: 600 }}
+        style={{ height: 600, width: 600, border: 'none' }}
         src={embeddedUrl}
       />
     </div>

@@ -25,13 +25,7 @@ function App() {
   };
 
   return (
-    <div
-      style={{
-        padding: 30,
-        backgroundColor: "#cdcdcd",
-        textAlign: "center",
-      }}
-    >
+    <div className="wrapper">
       <h1>Embedded application</h1>
       <pre>Message from parent: {messageFromParent}</pre>
       <button onClick={handleClickSuccess}>Success</button>
