@@ -64,22 +64,11 @@ export const Embedded = ({
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '10px',
-        marginTop: 20,
-      }}
-    >
-      <button onClick={sendMessageToIframe}>
-        Send a message to the iFrame
+    <div className="embedded-wrapper">
+      <button className="cta" onClick={sendMessageToIframe}>
+        Send a message to iFrame
       </button>
-      <iframe
-        ref={iframeRef}
-        style={{ height: 600, width: 600, border: 'none' }}
-        src={embeddedUrl}
-      />
+      <iframe className="iframe-wrapper" ref={iframeRef} src={embeddedUrl} />
     </div>
   );
 };

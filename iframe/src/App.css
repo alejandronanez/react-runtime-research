@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -14,7 +18,7 @@ h1 {
   padding-right: 30px;
   margin-top: 30px;
   height: 500px;
-  width: 500px;
+  width: 100%;
   background-color: #a4e8e8;
   display: flex;
   align-items: center;
@@ -29,7 +33,42 @@ h1 {
   background-color: #ff6c6c;
 }
 
+.cta {
+  background-color: #389fbc;
+  color: #e5f1f8;
+}
+
 .App {
   display: flex;
+  flex-direction: column;
   gap: 20px;
+}
+
+.App__main-app-wrapper {
+  flex: 2;
+}
+
+.App__embedded-wrapper {
+  flex: 1;
+}
+
+@media (min-width: 1024px) {
+  .App {
+    flex-direction: row;
+  }
+  .embedded-wrapper {
+    max-width: 400px;
+  }
+}
+
+.iframe-wrapper {
+  border: none;
+  height: 200px;
+}
+
+.embedded-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
 }

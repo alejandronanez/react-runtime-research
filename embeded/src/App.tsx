@@ -44,14 +44,12 @@ function App() {
   return (
     <div className="wrapper">
       <h1>Embedded application</h1>
-      <pre>Message from parent: {messageFromParent}</pre>
-      <button onClick={handleClickSuccess}>Success</button>
-      <br />
-      <br />
-      <button onClick={handleClickCancel}>Cancel</button>
-      <br />
-      <br />
-      <button onClick={handleClickReset}>Reset</button>
+      <pre>{messageFromParent}</pre>
+      <div className="button-wrapper">
+        <button onClick={handleClickSuccess}>Success</button>
+        <button onClick={handleClickCancel}>Cancel</button>
+        <button onClick={handleClickReset}>Reset</button>
+      </div>
     </div>
   );
 }
