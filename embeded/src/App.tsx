@@ -3,6 +3,10 @@ import "./App.css";
 
 const PARENT_URL = "http://127.0.0.1:5173/";
 
+type OutboundEvent = {
+  type: "SUCCESS" | "CANCEL" | "RESET";
+};
+
 function App() {
   const [messageFromParent, setMessageFromParent] = useState("");
 
@@ -17,11 +21,24 @@ function App() {
   }, []);
 
   const handleClickSuccess = () => {
-    window.parent.postMessage("'Success' action", PARENT_URL);
+    const outboundEvent: OutboundEvent = {
+      type: "SUCCESS",
+    };
+    window.parent.postMessage(outboundEvent, PARENT_URL);
   };
 
   const handleClickCancel = () => {
-    window.parent.postMessage("'Cancel' action", PARENT_URL);
+    const outboundEvent: OutboundEvent = {
+      type: "CANCEL",
+    };
+    window.parent.postMessage(outboundEvent, PARENT_URL);
+  };
+
+  const handleClickReset = () => {
+    const outboundEvent: OutboundEvent = {
+      type: "RESET",
+    };
+    window.parent.postMessage(outboundEvent, PARENT_URL);
   };
 
   return (
@@ -32,6 +49,9 @@ function App() {
       <br />
       <br />
       <button onClick={handleClickCancel}>Cancel</button>
+      <br />
+      <br />
+      <button onClick={handleClickReset}>Reset</button>
     </div>
   );
 }

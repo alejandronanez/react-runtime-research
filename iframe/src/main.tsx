@@ -13,16 +13,18 @@ if (!embeddedDOMNode) {
 }
 
 const embeddedUrl = embeddedDOMNode.dataset.embeddedUrl as string;
-const embeddedSuccessEvent = embeddedDOMNode.dataset.successEvent as string;
-const embeddedCancelEvent = embeddedDOMNode.dataset.cancelEvent as string;
+const embeddedSuccessRoute = embeddedDOMNode.dataset.successRoute as string;
+const embeddedCancelRoute = embeddedDOMNode.dataset.cancelRoute as string;
+const embeddedResetRoute = embeddedDOMNode.dataset.resetRoute as string;
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Router>
       <App
         embeddedUrl={embeddedUrl}
-        embeddedSuccessEvent={embeddedSuccessEvent}
-        embeddedCancelEvent={embeddedCancelEvent}
+        embeddedSuccessRoute={embeddedSuccessRoute}
+        embeddedCancelRoute={embeddedCancelRoute}
+        embeddedResetRoute={embeddedResetRoute}
       />
     </Router>
   </React.StrictMode>,

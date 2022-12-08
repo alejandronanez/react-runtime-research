@@ -2,33 +2,49 @@ import { useCallback, useEffect, useRef } from 'react';
 
 type EmbeddedProps = {
   embeddedUrl: string;
-  embeddedCancelEvent: string;
-  embeddedSuccessEvent: string;
-  onSuccessfulEvent: (event: string) => void;
-  onCancelEvent: (event: string) => void;
+  embeddedCancelRoute: string;
+  embeddedSuccessRoute: string;
+  embeddedResetRoute: string;
+  onNavigationEvent: (event: string) => void;
+};
+
+type EventType = 'SUCCESS' | 'CANCEL' | 'RESET';
+
+type IncomingEvent = {
+  type: EventType;
 };
 
 export const Embedded = ({
-  embeddedCancelEvent,
-  embeddedSuccessEvent,
+  embeddedCancelRoute,
+  embeddedSuccessRoute,
+  embeddedResetRoute,
   embeddedUrl,
-  onCancelEvent,
-  onSuccessfulEvent,
+  onNavigationEvent,
 }: EmbeddedProps) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const receiveMessageCallback = useCallback((e: MessageEvent) => {
-    /**
-     * e.data could be an object with information from React. We can't update the state with an object
-     *
-     * Objects look like:
-     * https://cdn.zappy.app/7f3ffc8c626d9c2b04d64a7f4048027b.png
-     */
-    if (typeof e.data === 'string') {
-      onCancelEvent(embeddedCancelEvent);
-      // onSuccessfulEvent(embeddedSuccessEvent);
-    }
-  }, []);
+  const receiveMessageCallback = useCallback(
+    (e: MessageEvent<IncomingEvent>) => {
+      /**
+       * e.data could be an object with information from React. We can't update the state with an object
+       *
+       * Objects look like:
+       * https://cdn.zappy.app/7f3ffc8c626d9c2b04d64a7f4048027b.png
+       */
+      if (e.data?.type === 'SUCCESS') {
+        onNavigationEvent(embeddedSuccessRoute);
+      }
+
+      if (e.data?.type === 'CANCEL') {
+        onNavigationEvent(embeddedCancelRoute);
+      }
+
+      if (e.data?.type === 'RESET') {
+        onNavigationEvent(embeddedResetRoute);
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     window.addEventListener('message', receiveMessageCallback);

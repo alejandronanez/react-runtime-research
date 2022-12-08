@@ -1,38 +1,19 @@
 import './App.css';
-import {
-  createBrowserRouter,
-  Route,
-  RouterProvider,
-  Routes,
-  useNavigate,
-} from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Embedded } from './Embedded';
 import { CancelRoute, RootRoute, SuccessRoute } from './Routes';
 
 type AppProps = {
   embeddedUrl: string;
-  embeddedSuccessEvent: string;
-  embeddedCancelEvent: string;
+  embeddedSuccessRoute: string;
+  embeddedCancelRoute: string;
+  embeddedResetRoute: string;
 };
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <RootRoute />,
-  },
-  {
-    path: '/success',
-    element: <SuccessRoute />,
-  },
-  {
-    path: '/cancel',
-    element: <CancelRoute />,
-  },
-]);
-
 function App({
-  embeddedCancelEvent,
-  embeddedSuccessEvent,
+  embeddedResetRoute,
+  embeddedCancelRoute,
+  embeddedSuccessRoute,
   embeddedUrl,
 }: AppProps) {
   const navigate = useNavigate();
@@ -49,14 +30,12 @@ function App({
       </Routes>
 
       <Embedded
-        embeddedCancelEvent={embeddedCancelEvent}
-        embeddedSuccessEvent={embeddedSuccessEvent}
+        embeddedCancelRoute={embeddedCancelRoute}
+        embeddedSuccessRoute={embeddedSuccessRoute}
+        embeddedResetRoute={embeddedResetRoute}
         embeddedUrl={embeddedUrl}
-        onSuccessfulEvent={() => {
-          navigate('/success');
-        }}
-        onCancelEvent={() => {
-          navigate('/cancel');
+        onNavigationEvent={(newRoute) => {
+          navigate(newRoute);
         }}
       />
     </div>
