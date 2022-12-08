@@ -62,7 +62,7 @@ Then, `App.tsx` renders the `Embedded` component which takes care of rendering t
   embeddedResetRoute={embeddedResetRoute}
   embeddedUrl={embeddedUrl}
   onNavigationEvent={(newRoute) => {
-  navigate(newRoute);
+    navigate(newRoute);
   }}
 />
 ```
@@ -75,51 +75,48 @@ The embedded component has an `onNavigationEvent` callback that is executed when
   - `SUCCESS`
   - `CANCEL`
   - `RESET`
-The parent application will be listening for those events and will trigger a navigation callback whenever those events are triggered
+    The parent application will be listening for those events and will trigger a navigation callback whenever those events are triggered
 
 ```tsx
 // /parent/Embedded.tsx
-const receiveMessageCallback = useCallback(
-  (e: MessageEvent<IncomingEvent>) => {
-    if (e.data?.type === 'SUCCESS') {
-      onNavigationEvent(embeddedSuccessRoute);
-    }
+const receiveMessageCallback = useCallback((e: MessageEvent<IncomingEvent>) => {
+  if (e.data?.type === 'SUCCESS') {
+    onNavigationEvent(embeddedSuccessRoute);
+  }
 
-    if (e.data?.type === 'CANCEL') {
-      onNavigationEvent(embeddedCancelRoute);
-    }
+  if (e.data?.type === 'CANCEL') {
+    onNavigationEvent(embeddedCancelRoute);
+  }
 
-    if (e.data?.type === 'RESET') {
-      onNavigationEvent(embeddedResetRoute);
-    }
-  },
-  [],
-);
+  if (e.data?.type === 'RESET') {
+    onNavigationEvent(embeddedResetRoute);
+  }
+}, []);
 
 // /embedded/App.tsx
 // The events that you have at your disposal
 type OutboundEvent = {
-  type: "SUCCESS" | "CANCEL" | "RESET";
+  type: 'SUCCESS' | 'CANCEL' | 'RESET';
 };
 
 // How to trigger those events on the embedded application
 const handleClickSuccess = () => {
   const outboundEvent: OutboundEvent = {
-    type: "SUCCESS",
+    type: 'SUCCESS',
   };
   window.parent.postMessage(outboundEvent, PARENT_URL);
 };
 
 const handleClickCancel = () => {
   const outboundEvent: OutboundEvent = {
-    type: "CANCEL",
+    type: 'CANCEL',
   };
   window.parent.postMessage(outboundEvent, PARENT_URL);
 };
 
 const handleClickReset = () => {
   const outboundEvent: OutboundEvent = {
-    type: "RESET",
+    type: 'RESET',
   };
   window.parent.postMessage(outboundEvent, PARENT_URL);
 };
@@ -138,3 +135,17 @@ return (
 ```
 
 ![](https://cdn.zappy.app/6ca5fea1daf7ccd766bc265866be69a3.png)
+
+# Pros and Cons
+
+## Pros
+
+- You can run any application you want inside the iFrame, you're not limited to React
+- You can get up and running fast. Just update the div `data-*` elements with whatever you need
+
+## Cons
+
+- Working with events to establish communication between the iFrame and the parent is not as straight forward as other options.
+- If the maintainers of the parent application roll out a breaking change (like changing a route) and this change is not communicated with the developers of the iframe, the iFrame application could break. Same goes for event names, if the parent application release/deprecate events the iframe developers will be in trouble
+- I assume that testing against a sandbox could be slow, as you'd have to deploy your iframe, and then let the sandbox application (the parent) about your iframe's new URL
+- Share application state between the iframe<->parent could get messy soon unless there's a standard mechanisms/apis to help you with that. In this POC we don't have that, we can use TypeScript to alleviate that problem, but that's brittle.
