@@ -11,6 +11,10 @@ function App() {
   const [messageFromParent, setMessageFromParent] = useState("");
 
   const receiveMessageCallback = useCallback((e: MessageEvent) => {
+    if (typeof e.data !== "string") {
+      return;
+    }
+
     setMessageFromParent(e.data);
   }, []);
 
