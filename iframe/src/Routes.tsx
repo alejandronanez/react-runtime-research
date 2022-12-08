@@ -1,6 +1,8 @@
 export const RootRoute = () => (
   <div className="page-wrapper">
-    <h2>I am the root route, let's pretend we have a lot of products here</h2>
+    <h2>
+      I am the root route, let's pretend we have more than a few products here
+    </h2>
   </div>
 );
 

@@ -28,3 +28,8 @@ h1 {
 .page-wrapper__cancel {
   background-color: #ff6c6c;
 }
+
+.App {
+  display: flex;
+  gap: 20px;
+}

@@ -19,15 +19,17 @@ function App({
   const navigate = useNavigate();
   return (
     <div className="App">
-      <h1>RechargeApps</h1>
+      <div>
+        <h1>RechargeApps</h1>
 
-      <Routes>
-        <Route path="/">
-          <Route index element={<RootRoute />} />
-          <Route path="success" element={<SuccessRoute />} />
-          <Route path="cancel" element={<CancelRoute />} />
-        </Route>
-      </Routes>
+        <Routes>
+          <Route path="/">
+            <Route index element={<RootRoute />} />
+            <Route path="success" element={<SuccessRoute />} />
+            <Route path="cancel" element={<CancelRoute />} />
+          </Route>
+        </Routes>
+      </div>
 
       <Embedded
         embeddedCancelRoute={embeddedCancelRoute}
