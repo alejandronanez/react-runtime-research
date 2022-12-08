@@ -2,6 +2,10 @@
 
 👋 Hey there, I explored two different alternatives on how to "inject/render" a third party component into a React Application at runtime.
 
+## Don't feel like reading?
+
+Check this video out https://www.loom.com/share/6fff9866e5c4421d8b3979449de6a70b
+
 ## Dynamic Imports
 
 **TL;DR:** This doesn't meet the requirements because it would require the consumers of the application to access the development version of the parent application. It was a fun exploration, Vite makes things so much easier!
