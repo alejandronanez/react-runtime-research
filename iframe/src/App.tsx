@@ -1,10 +1,4 @@
-import {
-  IframeHTMLAttributes,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import './App.css';
 
 type AppProps = {
@@ -12,29 +6,33 @@ type AppProps = {
   embeddedSuccessEvent: string;
   embeddedCancelEvent: string;
 };
-function App({
-  embeddedUrl,
-  embeddedCancelEvent,
-  embeddedSuccessEvent,
-}: AppProps) {
+function App({ embeddedUrl }: AppProps) {
   const [messageFromChild, setMessageFromChild] = useState('');
-  const iFrameRef = useRef<any>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   const sendMessage = () => {
-    if (!iFrameRef.current) return;
+    if (!iframeRef?.current?.contentWindow) {
+      return;
+    }
 
-    iFrameRef.current.contentWindow.postMessage('something', embeddedUrl);
+    iframeRef.current.contentWindow.postMessage('something', embeddedUrl);
   };
 
-  const callback = useCallback((e: any) => {
+  const receiveMessageCallback = useCallback((e: MessageEvent) => {
+    /**
+     * e.data could be an object with information from React. We can't update the state with an object
+     *
+     * Objects look like:
+     * https://cdn.zappy.app/7f3ffc8c626d9c2b04d64a7f4048027b.png
+     */
     if (typeof e.data === 'string') {
       setMessageFromChild(e.data);
     }
   }, []);
 
   useEffect(() => {
-    window.addEventListener('message', callback);
+    window.addEventListener('message', receiveMessageCallback);
 
-    return () => window.removeEventListener('message', callback);
+    return () => window.removeEventListener('message', receiveMessageCallback);
   }, []);
 
   return (
@@ -45,7 +43,7 @@ function App({
       </div>
       <pre>Outside events: {messageFromChild}</pre>
       <iframe
-        ref={iFrameRef}
+        ref={iframeRef}
         style={{ height: 500, width: 600 }}
         src={embeddedUrl}
       />
