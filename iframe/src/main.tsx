@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const embeddedDOMNode = document.getElementById('external-app-data');
 
@@ -17,10 +18,12 @@ const embeddedCancelEvent = embeddedDOMNode.dataset.cancelEvent as string;
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App
-      embeddedUrl={embeddedUrl}
-      embeddedSuccessEvent={embeddedSuccessEvent}
-      embeddedCancelEvent={embeddedCancelEvent}
-    />
+    <Router>
+      <App
+        embeddedUrl={embeddedUrl}
+        embeddedSuccessEvent={embeddedSuccessEvent}
+        embeddedCancelEvent={embeddedCancelEvent}
+      />
+    </Router>
   </React.StrictMode>,
 );

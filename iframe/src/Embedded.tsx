@@ -26,7 +26,7 @@ export const Embedded = ({
      */
     if (typeof e.data === 'string') {
       onCancelEvent(embeddedCancelEvent);
-      onSuccessfulEvent(embeddedSuccessEvent);
+      // onSuccessfulEvent(embeddedSuccessEvent);
     }
   }, []);
 
