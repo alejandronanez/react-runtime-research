@@ -12,10 +12,8 @@ if (!embeddedDOMNode) {
 }
 
 const embeddedUrl = embeddedDOMNode.dataset.embeddedUrl as string;
-const embeddedSuccessEvent = embeddedDOMNode.dataset
-  .embeddedSuccessEvent as string;
-const embeddedCancelEvent = embeddedDOMNode.dataset
-  .embeddedCancelEvent as string;
+const embeddedSuccessEvent = embeddedDOMNode.dataset.successEvent as string;
+const embeddedCancelEvent = embeddedDOMNode.dataset.cancelEvent as string;
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
