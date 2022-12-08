@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import "./App.css";
 
-const PARENT_URL = "http://127.0.0.1:5173/";
+const PARENT_URL = "http://localhost:3000/";
 
 type OutboundEvent = {
   type: "SUCCESS" | "CANCEL" | "RESET";

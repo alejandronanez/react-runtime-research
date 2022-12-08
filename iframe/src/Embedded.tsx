@@ -25,12 +25,6 @@ export const Embedded = ({
 
   const receiveMessageCallback = useCallback(
     (e: MessageEvent<IncomingEvent>) => {
-      /**
-       * e.data could be an object with information from React. We can't update the state with an object
-       *
-       * Objects look like:
-       * https://cdn.zappy.app/7f3ffc8c626d9c2b04d64a7f4048027b.png
-       */
       if (e.data?.type === 'SUCCESS') {
         onNavigationEvent(embeddedSuccessRoute);
       }
