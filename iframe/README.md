@@ -2,7 +2,14 @@
 
 The iFrame approach was the most straightforward approach I could find for a POC about how to "Inject a React Component into a React Application at Runtime".
 
-I decided that the best allow developers to run their code on a running React application was to put some hard requirements about how to do it, instead of letting them do whatever they want. This solution also works fine for non-technical people which the only thing they want is to try something out quick.
+I decided that the best allow developers to run their code on a running React application was to put some hard requirements about how to do it, instead of letting them do whatever they want. This solution also works fine for non-technical people as they only have to update the data in the `external-app-data` DOM node.
+
+To inject an iframe at runtime in the main application, you'd have to create a div with certain `data-*` attributes:
+
+- `data-embedded-url` -> the iframe address
+- `data-success-route` -> the route that the parent application should change to when a successful flow happens on the iFrame
+- `data-cancel-route` -> the route that the parent application should change to when a failure happens on the iFrame
+- `data-reset-route` -> the route that the parent application should change to when the user reset the flow on the iFrame
 
 ```html
 <div
@@ -15,13 +22,6 @@ I decided that the best allow developers to run their code on a running React ap
 <div id="root"></div>
 <script type="module" src="/src/main.tsx"></script>
 ```
-
-To inject an iframe at runtime in the main application, you'd have to create a div with certain `data-*` attributes:
-
-- `data-embedded-url` -> the iframe address
-- `data-success-route` -> the route that the parent application should change to when a successful flow happens on the iFrame
-- `data-cancel-route` -> the route that the parent application should change to when a failure happens on the iFrame
-- `data-reset-route` -> the route that the parent application should change to when the user reset the flow on the iFrame
 
 We grab this data in `main.tsx` like this:
 
@@ -75,7 +75,8 @@ The embedded component has an `onNavigationEvent` callback that is executed when
   - `SUCCESS`
   - `CANCEL`
   - `RESET`
-    The parent application will be listening for those events and will trigger a navigation callback whenever those events are triggered
+    
+The parent application will be listening for those events and will trigger a navigation callback whenever those events are triggered
 
 ```tsx
 // /parent/Embedded.tsx
